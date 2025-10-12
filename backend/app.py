@@ -1,3 +1,4 @@
+from io import BytesIO
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import pipeline
@@ -13,7 +14,9 @@ interview_qa_model = pipeline("text-generation", model="gpt2")
 
 # --- Helper: Parse resume PDF ---
 def parse_resume(pdf_file):
-    text = extract_text(pdf_file)
+    pdf_bytes = pdf_file.read()
+    pdf_stream = BytesIO(pdf_bytes)
+    text = extract_text(pdf_stream)
     return text[:3000] # limit for simplicity
 
 # --- Route 1: Analyze Resume ---
