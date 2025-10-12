@@ -38,7 +38,7 @@ def generate_cover_letter():
 @app.route("/generate_interview_questions", methods=["POST"])
 def generate_interview_questions():
     data = request.get_json()
-    job_title = request.get_json("job_title", "")
+    job_title = data.get_json("job_title", "")
     prompt = f"Generate 5 interview questions for a {job_title} candidate."
     result = interview_qa_model(prompt, max_length=100, do_sample=True)
     return jsonify({"questions": result[0]["generated_text"]})
