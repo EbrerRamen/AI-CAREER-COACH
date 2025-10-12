@@ -24,3 +24,13 @@ def analyze_resume():
     result = resume_analysis_model(text, truncation=True)
     return jsonify({"analysis": result})
 
+# --- Route 2: Generate Cover Letter ---
+@app.route("/generate_cover_letter", methods=["POST"])
+def generate_cover_letter():
+    data = request.get_json()
+    resume_text = data.get("resume_text", "")
+    job_title = data.get("job_title", "")
+    prompt = f"Write a professional cover letter for a {job_title} position based on this resume:\n{resume_text}"
+    result = cover_letter_model(prompt, max_length=250, do_sample=True)
+    return jsonify({"cover_letter": result[0]["generated_text"]})
+
