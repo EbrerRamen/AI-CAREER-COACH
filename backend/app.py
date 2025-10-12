@@ -34,3 +34,14 @@ def generate_cover_letter():
     result = cover_letter_model(prompt, max_length=250, do_sample=True)
     return jsonify({"cover_letter": result[0]["generated_text"]})
 
+# --- Route 3: Generate Intervierw Questions ---
+@app.route("/generate_interview_questions", methods=["POST"])
+def generate_interview_questions():
+    data = request.get_json()
+    job_title = request.get_json("job_title", "")
+    prompt = f"Generate 5 interview questions for a {job_title} candidate."
+    result = interview_qa_model(prompt, max_length=100, do_sample=True)
+    return jsonify({"questions": result[0]["generated_text"]})
+
+if __name__ == "__main__":
+    app.run(debug=True)
