@@ -13,7 +13,7 @@ CORS(app)
 
 # --- Load AI models locally ---
 resume_analysis_model = pipeline("text-classification", model="facebook/bart-large-mnli")
-cover_letter_model = pipeline("text-generation", model="gpt2")
+# cover_letter_model = pipeline("text-generation", model="gpt2")
 interview_qa_model = pipeline("text-generation", model="gpt2")
 
 tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
@@ -33,13 +33,39 @@ def parse_resume(pdf_file):
     text = extract_text(pdf_stream)
     return text[:3000] # limit for simplicity
 
-# --- Route 1: Analyze Resume ---
+# --- Route 1: Analyze Resume (using DeepSeek/DeepSeek-v3.2 Exp) ---
 @app.route("/analyze_resume", methods=["POST"])
 def analyze_resume():
     file = request.files["resume"]
     text = parse_resume(file)
-    result = resume_analysis_model(text, truncation=True)
-    return jsonify({"analysis": result})
+
+    # --- Build the analysis prompt ---
+    prompt = f"""
+You are a professional career coach and resume reviewer.
+Analyze the following resume text and provide:
+1. A summary of the candidate’s background.
+2. Key strengths and technical skills.
+3. Potential weaknesses or missing areas.
+4. Actionable suggestions for improvement.
+DO NOT INCLUDE ANYTHING ELSE
+Resume:
+{text[:3000]}
+"""
+
+    # --- Send to model ---
+    completion = client.chat.completions.create(
+        model="deepseek-ai/DeepSeek-V3.2-Exp:novita",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.6,
+        max_tokens=500
+    )
+
+    # --- Extract and clean response ---
+    analysis = completion.choices[0].message.content
+
+    # --- Return JSON ---
+    return jsonify({"analysis": analysis})
+
 
 # --- Route 2: Generate Cover Letter (using facebook/bart-large-mnli) ---
 # @app.route("/generate_cover_letter", methods=["POST"])
