@@ -26,3 +26,5 @@ yarn-error.log*
 /backend/venv
 
 .vscode
+
+/backend/test.py
