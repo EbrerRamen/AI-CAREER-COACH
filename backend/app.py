@@ -79,8 +79,8 @@ def generate_cover_letter():
 
     # --- Build a strong prompt ---
     prompt = f"""
-You are a professional career coach and expert in writing cover letters.
-Write a polished, detailed, and professional cover letter for the position of '{job_title}' at XYZ company.
+You are an expert career coach and professional copywriter.
+Write a polished, professional, and engaging cover letter for the position of '{job_title}' at XYZ company.
 Use the following resume information:
 
 {resume_text}
@@ -93,6 +93,7 @@ The cover letter should:
 - Be concise, clear, and persuasive, around 250-300 words.
 - Include a strong opening, middle, and closing paragraph.
 
+Generate it in a formal but friendly professional tone.
 """
 
     # Call Hugging Face DeepSeek API
