@@ -48,7 +48,14 @@ def generate_cover_letter():
     resume_text = data.get("resume_text", "")
     job_title = data.get("job_title", "")
 
-    prompt = f"Write a professional cover letter for a {job_title} based on this resume: {resume_text}"
+    prompt = f"""
+You are a professional career coach. 
+Write a clear and concise cover letter for a {job_title} position based on the following resume:
+{resume_text}
+
+The cover letter should highlight the candidate’s strengths, relevant experience, and enthusiasm for the role. 
+Make it professional, friendly, and tailored to the job.
+"""
     inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True)
     outputs = model.generate(**inputs, max_new_tokens=400, do_sample=True, top_k=50, top_p=0.95, temperature=0.7, repetition_penalty=2.0)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
