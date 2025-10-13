@@ -47,11 +47,11 @@ def generate_cover_letter():
     data = request.get_json()
     resume_text = data.get("resume_text", "")
     job_title = data.get("job_title", "")
-    
+
     prompt = f"Write a professional cover letter for a {job_title} based on this resume: {resume_text}"
     inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True)
-    outputs = model.generate(**inputs, max_new_tokens=200)
-    return tokenizer.decode(outputs[0], skip_special_token=True)
+    outputs = model.generate(**inputs, max_new_tokens=250, do_sample=True, top_k=50, top_p=0.95, temperature=0.7, repetition_penalty=2.0)
+    return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 # --- Route 3: Generate Interview Questions ---
 @app.route("/generate_interview_questions", methods=["POST"])
