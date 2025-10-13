@@ -137,14 +137,36 @@ Generate it in a formal but friendly professional tone.
     return jsonify({"cover_letter": cover_letter})
 
 
-# --- Route 3: Generate Interview Questions ---
+# --- Route 3: Generate Interview Questions (using DeepSeek/DeepSeek-v3.2 Exp) ---
 @app.route("/generate_interview_questions", methods=["POST"])
 def generate_interview_questions():
     data = request.get_json()
     job_title = data.get("job_title", "")
-    prompt = f"Generate 5 interview questions for a {job_title} candidate."
-    result = interview_qa_model(prompt, max_length=100, do_sample=True)
-    return jsonify({"questions": result[0]["generated_text"]})
+
+    # --- Build prompt ---
+    prompt = f"""
+You are an experienced technical interviewer.
+Generate 5 thoughtful, role-specific interview questions for a {job_title} position.
+Questions should:
+- Test both technical and problem-solving skills.
+- Include a mix of conceptual and practical topics.
+- Be concise and clear (no answers needed).
+- Just the questions. Do not include anything else in your response.
+"""
+
+    # --- Call DeepSeek API ---
+    completion = client.chat.completions.create(
+        model="deepseek-ai/DeepSeek-V3.2-Exp:novita",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.7,
+        max_tokens=300
+    )
+
+    # --- Extract and clean result ---
+    questions = completion.choices[0].message.content
+
+    # --- Return as JSON ---
+    return jsonify({"questions": questions})
 
 if __name__ == "__main__":
     app.run(debug=True)
