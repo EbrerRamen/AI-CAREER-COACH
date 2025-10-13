@@ -1,9 +1,12 @@
+import os
 from io import BytesIO
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import pipeline
 from pdfminer.high_level import extract_text
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from dotenv import load_dotenv
+from openai import OpenAI
 
 app = Flask(__name__)
 CORS(app)
@@ -15,6 +18,13 @@ interview_qa_model = pipeline("text-generation", model="gpt2")
 
 tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
 model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-small")
+
+load_dotenv()
+
+client = OpenAI(
+    base_url="https://router.huggingface.co/v1",
+    api_key=os.environ["HF_TOKEN"],
+)
 
 # --- Helper: Parse resume PDF ---
 def parse_resume(pdf_file):
