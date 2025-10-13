@@ -1,38 +1,55 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
-export default function ResumeUpload() {
-    const [file, setFile] = useState(null)
+function ResumeUpload() {
+    const [file, setFile] = useState(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (file) {
-            // later send file to backend
-            navigate("/result");
-        } else {
-            alert("Please upload your resume first!");
+        if (!file) return alert("Please upload a resume file first.");
+
+        const formData = new FormData();
+        formData.append("resume", file);
+
+        try {
+            setLoading(true);
+            const res = await axios.post("http://127.0.0.1:5000/analyze_resume", formData, {
+                headers: {"Content-Type": "multipart/form-data"},
+            });
+
+            // Send result to Result page
+            navigate("/result", {state: {analysis: res.data.analysis, resumeText: "Resume Uploaded"}});
+        } catch (err) {
+            console.error(err);
+            alert("Error analyzing resume.");
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className="max-w-lg mx-auto mt-10 bg-white p-8 rounded-2xl shadow">
-            <h2 className="text-2xl font-bod mb-4 text-center">Upload Your Resume</h2>
-            <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+        <div className="p-6 max-w-xl mx-auto mt-20 text-center border rounded-lg shadow-lg">
+            <h1 className="text-2xl font-bold mb-4">Upload Your Resume</h1>
+            <form onSubmit={handleSubmit}>
                 <input
                 type="file"
-                accept=".pdf,.doc,.docx,.txt"
+                accept="application/pdf"
                 onChange={(e) => setFile(e.target.files[0])}
-                className="border border-gray-300 p-2 rounded w-full"
+                className="mb-4 border p-2 rounded w-full"
                 />
-                {file && <p className="text-gray-600">📄 {file.name}</p>}
                 <button 
                 type="submit"
-                className="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-700 transition"
+                disabled={loading}
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-700"
                 >
-                    Analyze Resume
+                    {loading ? "Analyzing..." : "Analyze Resume"}
                 </button>
             </form>
         </div>
     );
 }
+
+export default ResumeUpload;
