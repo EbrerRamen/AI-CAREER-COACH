@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import pipeline
 from pdfminer.high_level import extract_text
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 app = Flask(__name__)
 CORS(app)
@@ -11,6 +12,9 @@ CORS(app)
 resume_analysis_model = pipeline("text-classification", model="facebook/bart-large-mnli")
 cover_letter_model = pipeline("text-generation", model="gpt2")
 interview_qa_model = pipeline("text-generation", model="gpt2")
+
+tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
+model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-small")
 
 # --- Helper: Parse resume PDF ---
 def parse_resume(pdf_file):
@@ -27,15 +31,27 @@ def analyze_resume():
     result = resume_analysis_model(text, truncation=True)
     return jsonify({"analysis": result})
 
-# --- Route 2: Generate Cover Letter ---
+# --- Route 2: Generate Cover Letter (using facebook/bart-large-mnli) ---
+# @app.route("/generate_cover_letter", methods=["POST"])
+# def generate_cover_letter():
+#     data = request.get_json()
+#     resume_text = data.get("resume_text", "")
+#     job_title = data.get("job_title", "")
+#     prompt = f"Write a professional cover letter for a {job_title} position based on this resume:\n{resume_text}"
+#     result = cover_letter_model(prompt, max_length=250, do_sample=True)
+#     return jsonify({"cover_letter": result[0]["generated_text"]})
+
+# --- Route 2: Generate Cover Letter (using google/flan-t5-small) ---
 @app.route("/generate_cover_letter", methods=["POST"])
 def generate_cover_letter():
     data = request.get_json()
     resume_text = data.get("resume_text", "")
     job_title = data.get("job_title", "")
-    prompt = f"Write a professional cover letter for a {job_title} position based on this resume:\n{resume_text}"
-    result = cover_letter_model(prompt, max_length=250, do_sample=True)
-    return jsonify({"cover_letter": result[0]["generated_text"]})
+    
+    prompt = f"Write a professional cover letter for a {job_title} based on this resume: {resume_text}"
+    inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True)
+    outputs = model.generate(**inputs, max_new_tokens=200)
+    return tokenizer.decode(outputs[0], skip_special_token=True)
 
 # --- Route 3: Generate Interview Questions ---
 @app.route("/generate_interview_questions", methods=["POST"])
