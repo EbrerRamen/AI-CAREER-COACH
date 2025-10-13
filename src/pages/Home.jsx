@@ -1,20 +1,22 @@
 import {Link} from "react-router-dom";
 
-export default function Home() {
+function Home() {
     return (
-        <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-            <h1 className="text-4xl font-bold mb-4 text-gray-800">
-                Your Personal <span className="text-blue-600">AI Career Coach</span>
+        <div className="flex flex-col items-center justify-center h-screen text-center">
+            <h1 className="text-3xl font-bold mb-4">
+                AI Career Coach
             </h1>
-            <p className="text-gray-600 max-w-xl mb-8">
-                Upload your resume and let our AI provide smart insights, improve your cover letter and prepare you for interviews.
+            <p className="text-gray-600 mb-6">
+                Upload your resume to get personalized analysis, cover letters, and interview questions.
             </p>
             <Link
-            to="/upload"
-            className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transiotion"
-            >
-                Get Started
+            to="/upload">
+                <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+                    Get Started
+                </button>
             </Link>
         </div>
     );
 }
+
+export default Home;
