@@ -51,24 +51,70 @@ def analyze_resume():
 #     result = cover_letter_model(prompt, max_length=250, do_sample=True)
 #     return jsonify({"cover_letter": result[0]["generated_text"]})
 
-# --- Route 2: Generate Cover Letter (using google/flan-t5-small) ---
+# # --- Route 2: Generate Cover Letter (using google/flan-t5-small) ---
+# @app.route("/generate_cover_letter", methods=["POST"])
+# def generate_cover_letter():
+#     data = request.get_json()
+#     resume_text = data.get("resume_text", "")
+#     job_title = data.get("job_title", "")
+
+#     prompt = f"""
+# You are a professional career coach. 
+# Write a clear and concise cover letter for a {job_title} position based on the following resume:
+# {resume_text}
+
+# The cover letter should highlight the candidate’s strengths, relevant experience, and enthusiasm for the role. 
+# Make it professional, friendly, and tailored to the job.
+# """
+#     inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True)
+#     outputs = model.generate(**inputs, max_new_tokens=400, do_sample=True, top_k=50, top_p=0.95, temperature=0.7, repetition_penalty=2.0)
+#     return tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+# --- Route 2: Generate Cover Letter (using DeepSeek/DeepSeek-v3.2 Exp) ---
 @app.route("/generate_cover_letter", methods=["POST"])
 def generate_cover_letter():
     data = request.get_json()
     resume_text = data.get("resume_text", "")
     job_title = data.get("job_title", "")
+    candidate_name = data.get("candidate_name", "Your Name")  # optional
+    previous_company = data.get("previous_company", "Previous Company")  # optional
 
+    # --- Build a strong prompt ---
     prompt = f"""
-You are a professional career coach. 
-Write a clear and concise cover letter for a {job_title} position based on the following resume:
+You are a professional career coach and expert in writing cover letters.
+Write a polished, detailed, and professional cover letter for the position of '{job_title}'.
+Use the following resume information to highlight the candidate’s skills, experience, and enthusiasm:
+
 {resume_text}
 
-The cover letter should highlight the candidate’s strengths, relevant experience, and enthusiasm for the role. 
-Make it professional, friendly, and tailored to the job.
+- Mention the candidate’s key achievements and relevant skills.
+- Keep it professional, friendly, and tailored to the job.
+- Include a personalized greeting and closing.
+- Use placeholder names for the candidate and previous company, but make it easy to replace later.
+
+Candidate Name: {candidate_name}
+Previous Company: {previous_company}
 """
-    inputs = tokenizer(prompt, return_tensors="pt", max_length=512, truncation=True)
-    outputs = model.generate(**inputs, max_new_tokens=400, do_sample=True, top_k=50, top_p=0.95, temperature=0.7, repetition_penalty=2.0)
-    return tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+    # Call Hugging Face DeepSeek API
+    completion = client.chat.completions.create(
+        model="deepseek-ai/DeepSeek-V3.2-Exp:novita",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.7,
+        max_tokens=500
+    )
+
+    # Extract the response
+    cover_letter = completion.choices[0].message.content
+
+    # Optional: replace placeholders with actual candidate info
+    cover_letter = cover_letter.replace("[Your Name]", candidate_name)
+    cover_letter = cover_letter.replace("[Previous Company]", previous_company)
+    cover_letter = cover_letter.replace("XYZ Company", job_title)
+
+    # Return JSON
+    return jsonify({"cover_letter": cover_letter})
+
 
 # --- Route 3: Generate Interview Questions ---
 @app.route("/generate_interview_questions", methods=["POST"])
