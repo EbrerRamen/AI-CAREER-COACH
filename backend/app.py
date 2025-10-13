@@ -76,24 +76,23 @@ def generate_cover_letter():
     data = request.get_json()
     resume_text = data.get("resume_text", "")
     job_title = data.get("job_title", "")
-    candidate_name = data.get("candidate_name", "Your Name")  # optional
-    previous_company = data.get("previous_company", "Previous Company")  # optional
 
     # --- Build a strong prompt ---
     prompt = f"""
 You are a professional career coach and expert in writing cover letters.
-Write a polished, detailed, and professional cover letter for the position of '{job_title}'.
-Use the following resume information to highlight the candidate’s skills, experience, and enthusiasm:
+Write a polished, detailed, and professional cover letter for the position of '{job_title}' at XYZ company.
+Use the following resume information:
 
 {resume_text}
 
-- Mention the candidate’s key achievements and relevant skills.
-- Keep it professional, friendly, and tailored to the job.
-- Include a personalized greeting and closing.
-- Use placeholder names for the candidate and previous company, but make it easy to replace later.
+The cover letter should:
+- Be tailored to the company and role.
+- Highlight the candidate's skills mentioned in resume information.
+- Emphasize relevant experience and accomplishments.
+- Show enthusiasm and cultural fit for the company.
+- Be concise, clear, and persuasive, around 250-300 words.
+- Include a strong opening, middle, and closing paragraph.
 
-Candidate Name: {candidate_name}
-Previous Company: {previous_company}
 """
 
     # Call Hugging Face DeepSeek API
@@ -106,11 +105,6 @@ Previous Company: {previous_company}
 
     # Extract the response
     cover_letter = completion.choices[0].message.content
-
-    # Optional: replace placeholders with actual candidate info
-    cover_letter = cover_letter.replace("[Your Name]", candidate_name)
-    cover_letter = cover_letter.replace("[Previous Company]", previous_company)
-    cover_letter = cover_letter.replace("XYZ Company", job_title)
 
     # Return JSON
     return jsonify({"cover_letter": cover_letter})
