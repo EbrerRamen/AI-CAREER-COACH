@@ -46,8 +46,15 @@ function Result() {
     return (
         <div className="p-6 max-w-3xl mx-auto mt-10">
             <h1 className="text-2xl font-bold mb-4">Resume Analysis</h1>
+            {/* <div className="border p-4 rounded mb-6 bg-gray-50 space-y-4">
+                {analysis.split(/\n(?=\d+\.\s)/).map((section, index) =>
+                <div key={index}>
+                    <pre className="whitespace-pre-wrap text-gray-800">{section.trim()}</pre>
+                    </div>
+                )}
+            </div> */}
             <p className="border p-4 rounded mb-6 bg-gray-50 whitespace-pre-line">{analysis}</p>
-            
+
             <div className="mb-4">
                 <input
                 type="text"
