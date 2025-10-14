@@ -68,7 +68,7 @@ function Result() {
                     onClick={generateCoverLetter}
                     className="bg-green-600 text-white px-4 py-2 rounded hover:bg=green-700"
                     >
-                        {loading ? "Generating..." : "Generate Coveer Letter"}
+                        {loading ? "Generating..." : "Generate Cover Letter"}
                     </button>
                     <button
                     onClick={generateInterviewQuestions}
