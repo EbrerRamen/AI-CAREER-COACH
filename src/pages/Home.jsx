@@ -6,7 +6,7 @@ function Home() {
         <div className="relative flex flex-col items-center justify-center min-h-screen text-center bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-700 overflow-hidden">
 
             {/* Content Container */}
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col items-center">
                 {/* Main Heading */}
                 <motion.h1 
                     initial={{ opacity: 0, y: -20 }}
@@ -17,15 +17,15 @@ function Home() {
                     Your Personal <span className="text-yellow-400">AI Career Coach</span>
                 </motion.h1>
 
-                {/* Description */}
+                {/* Description (centered) */}
                 <motion.p 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.6 }}
-                    className="text-white max-w-xl mb-8 text-lg"
+                    className="text-white max-w-xl mx-auto mb-8 text-lg text-center leading-relaxed"
                 >
                     Upload your resume and let AI craft your perfect cover letter, generate interview questions, 
-                    and help you stand out - all in minutes.
+                    and help you stand out — all in minutes.
                 </motion.p>
 
                 {/* Button */}
@@ -42,7 +42,7 @@ function Home() {
                 </motion.div>
             </div>
 
-            {/* Floating Glowing Blobs */}
+            {/* Floating Glowing Blobs (behind content) */}
             <div className="absolute inset-0 z-0 pointer-events-none">
                 {/* Left Top Blob */}
                 <motion.div
