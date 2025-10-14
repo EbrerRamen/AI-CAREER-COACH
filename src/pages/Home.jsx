@@ -40,22 +40,22 @@ function Home() {
             </motion.div>
 
             {/* Creative Floating Background Blobs */}
-            <div className="absolute inset-0 -z-10 pointer-events-none">
+            <div className="absolute inset-0 z-0 pointer-events-none">
                 <motion.div
-                    className="absolute w-80 h-80 bg-indigo-400/40 rounded-full filter blur-3xl"
-                    animate={{ x: [0, 100, 0], y: [0, -50, 0], scale: [1, 1.2, 1] }}
+                    className="absolute w-80 h-80 bg-indigo-400/60 rounded-full filter blur-3xl"
+                    animate={{ x: [0, 80, 0], y: [0, -40, 0], scale: [1, 1.2, 1] }}
                     transition={{ repeat: Infinity, duration: 20, ease: "easeInOut" }}
                     style={{ top: "10%", left: "15%" }}
                 />
                 <motion.div
-                    className="absolute w-96 h-96 bg-pink-400/40 rounded-full filter blur-3xl"
-                    animate={{ x: [0, -80, 0], y: [0, 60, 0], scale: [1, 1.1, 1] }}
+                    className="absolute w-96 h-96 bg-pink-400/60 rounded-full filter blur-3xl"
+                    animate={{ x: [0, -60, 0], y: [0, 50, 0], scale: [1, 1.15, 1] }}
                     transition={{ repeat: Infinity, duration: 25, ease: "easeInOut" }}
                     style={{ bottom: "10%", right: "10%" }}
                 />
                 <motion.div
-                    className="absolute w-72 h-72 bg-purple-400/30 rounded-full filter blur-3xl"
-                    animate={{ x: [0, 50, 0], y: [0, -30, 0], scale: [1, 1.15, 1] }}
+                    className="absolute w-72 h-72 bg-purple-400/50 rounded-full filter blur-3xl"
+                    animate={{ x: [0, 40, 0], y: [0, -30, 0], scale: [1, 1.1, 1] }}
                     transition={{ repeat: Infinity, duration: 22, ease: "easeInOut" }}
                     style={{ top: "30%", left: "50%" }}
                 />
