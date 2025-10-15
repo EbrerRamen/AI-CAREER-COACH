@@ -97,8 +97,8 @@ function Result() {
             )}
             {questions && (
                 <>
-                <h2 className="text-xl font-semibold mt-6 mb-2">Interview Questions</h2>
-                <p className="border p-4 rounded bg-gray-50 whitespace-pre-line">{questions}</p>
+                <h2 className="text-2xl font-semibold mt-8 mb-3 text-pink-300">Interview Questions</h2>
+                <p className="border border-white/20 p-4 rounded bg-white/5 text-gray-100 whitespace-pre-line">{questions}</p>
                 </>
             )}
         </div>
