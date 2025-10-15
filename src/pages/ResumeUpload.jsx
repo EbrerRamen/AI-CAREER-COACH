@@ -35,22 +35,35 @@ function ResumeUpload() {
             {/* Glowing blob background */}
             <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-pulse"></div>
             <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-500 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-pulse"></div>
-            <h1 className="text-2xl font-bold mb-4">Upload Your Resume</h1>
-            <form onSubmit={handleSubmit}>
+            
+            {/* upload Card */}
+            <div className="relative z-10 p-8 w-full max-w-md text-center bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl">
+            <h1 className="text-3xl font-bold text-white mb-6">Upload Your Resume</h1>
+            
+            <form onSubmit={handleSubmit} className="sapce-y-5">
                 <input
                 type="file"
                 accept="application/pdf"
                 onChange={(e) => setFile(e.target.files[0])}
-                className="mb-4 border p-2 rounded w-full"
+                className="block w-full text-sm text-white file:mr-4 file:py-2 file:px-4
+                            file:rounded-md file:border-0 file:text-sm file:font-semibold
+                            file:bg-indigo-600 file:text-white hover:file:bg-indigo-700
+                            focus:outline-none"
                 />
+
                 <button 
                 type="submit"
                 disabled={loading}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-700"
+                className={`w-full py-3 rounded-xl font-semibold text-lg transition-all
+                    ${loading
+                        ? "bg-gray-500 cursor-not-allowed" 
+                        : "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 shadow-lg hover:shadow-purple-500/50"}
+                        text-white`}
                 >
                     {loading ? "Analyzing..." : "Analyze Resume"}
                 </button>
             </form>
+        </div>
         </div>
     );
 }
