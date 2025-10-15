@@ -8,7 +8,6 @@ function Result() {
     const [coverLetter, setCoverLetter] = useState("");
     const [questions, setQuestions] = useState("");
     const [jobTitle, setJobTitle] = useState("");
-    const [loading, setLoading] = useState(false);
     const [loadingCover, setLoadingCover] = useState(false);
     const [loadingQuestions, setLoadingQuestions] = useState(false);
 
@@ -69,7 +68,7 @@ function Result() {
                     <button
                     onClick={generateCoverLetter}
                     className={`px-6 py-3 rounded-xl font-semibold text-lg transition-all ${
-                        loading
+                        loadingCover
                         ? "bg-gray-500 cursor-not-allowed"
                         : "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 shadow-lg hover:shadow-emerald-500/50"
                     } text-white`}
@@ -81,7 +80,7 @@ function Result() {
                     <button
                     onClick={generateInterviewQuestions}
                     className={`px-6 py-3 rounded-xl font-semibold text-lg transition-all ${
-                        loading
+                        loadingQuestions
                         ? "bg-gray-500 cursor-not-allowed"
                         : "bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500 shadow-lg hover:shadow-pink-500/50"
                     } text-white`}
