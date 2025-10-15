@@ -50,27 +50,38 @@ function Result() {
             <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-pulse"></div>
             <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-500 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-pulse"></div>
 
-            <h1 className="text-2xl font-bold mb-4">Resume Analysis</h1>
-            <p className="border p-4 rounded mb-6 bg-gray-50 whitespace-pre-line">{analysis}</p>
+            {/* Card */}
+            <div className="relative z-10 w-full max-w-3xl bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8 text-white">
+            <h1 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-indigo-300 via-purple-300 to pink-300 bg-clip-text text-transparent">Resume Analysis</h1>
+            <p className="border border-white/20 p-4 rounded-lg mb-6 bg-white/5 text-gray-100 whitespace-pre-line">{analysis}</p>
 
-            <div className="mb-4">
+            <div className="mb-6">
                 <input
                 type="text"
                 placeholder="Enter Job Title"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
-                className="border p-2 rounded w-full mb-2"
+                className="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4"
                 />
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4 justify-center">
                     <button
                     onClick={generateCoverLetter}
-                    className="bg-green-600 text-white px-4 py-2 rounded hover:bg=green-700"
+                    className={`px-6 py-3 rounded-xl font-semibold text-lg transition-all ${
+                        loading
+                        ? "bg-gray-500 cursor-not-allowed"
+                        : "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 shadow-lg hover:shadow-emerald-500/50"
+                    }text-white`}
                     >
                         {loading ? "Generating..." : "Generate Cover Letter"}
                     </button>
+
                     <button
                     onClick={generateInterviewQuestions}
-                    className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+                    className={`px-6 py-3 rounded-xl font-semibold text-lg transition-all ${
+                        loading
+                        ? "bg-gray-500 cursor-not-allowed"
+                        : "bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:from-purple-400 hover:to-pink-500 shadow-lg hover:shadow-pink-500/50"
+                    } text-white`}
                     >
                         {loading ? "Generating..." : "Generate Questions"}
                     </button>
@@ -89,6 +100,7 @@ function Result() {
                 <p className="border p-4 rounded bg-gray-50 whitespace-pre-line">{questions}</p>
                 </>
             )}
+        </div>
         </div>
     );
 }
