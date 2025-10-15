@@ -9,10 +9,12 @@ function Result() {
     const [questions, setQuestions] = useState("");
     const [jobTitle, setJobTitle] = useState("");
     const [loading, setLoading] = useState(false);
+    const [loadingCover, setLoadingCover] = useState(false);
+    const [loadingQuestions, setLoadingQuestions] = useState(false);
 
     const generateCoverLetter = async () => {
         if (!jobTitle) return alert("Enter a job title first.");
-        setLoading(true);
+        setLoadingCover(true);
         try {
             const res = await axios.post("http://127.0.0.1:5000/generate_cover_letter", {
                 job_title: jobTitle,
@@ -23,13 +25,13 @@ function Result() {
             console.error(err);
             alert("Error generating cover letter.");
         } finally {
-            setLoading(false);
+            setLoadingCover(false);
         }
     };
 
     const generateInterviewQuestions = async () => {
         if (!jobTitle) return alert("Enter a job title first.");
-        setLoading(true);
+        setLoadingQuestions(true);
         try {
             const res = await axios.post("http://127.0.0.1:5000/generate_interview_questions", {
                 job_title: jobTitle,
@@ -39,7 +41,7 @@ function Result() {
             console.error(err);
             alert("Error generating interview questions.");
         } finally {
-            setLoading(false);
+            setLoadingQuestions(false);
         }
     };
 
@@ -71,8 +73,9 @@ function Result() {
                         ? "bg-gray-500 cursor-not-allowed"
                         : "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 shadow-lg hover:shadow-emerald-500/50"
                     } text-white`}
+                    disabled = {loadingQuestions || loadingCover}
                     >
-                        {loading ? "Generating..." : "Generate Cover Letter"}
+                        {loadingCover ? "Generating..." : "Generate Cover Letter"}
                     </button>
 
                     <button
@@ -82,8 +85,9 @@ function Result() {
                         ? "bg-gray-500 cursor-not-allowed"
                         : "bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500 shadow-lg hover:shadow-pink-500/50"
                     } text-white`}
+                    disabled = {loadingQuestions || loadingCover}
                     >
-                        {loading ? "Generating..." : "Generate Questions"}
+                        {loadingQuestions ? "Generating..." : "Generate Questions"}
                     </button>
                 </div>
             </div>
