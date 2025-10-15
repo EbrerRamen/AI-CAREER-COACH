@@ -31,7 +31,8 @@ function ResumeUpload() {
     };
 
     return (
-        <div className="p-6 max-w-xl mx-auto mt-20 text-center border rounded-lg shadow-lg">
+        <div className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 overflow-hidden">
+            {/* Glowing blob background */}
             <h1 className="text-2xl font-bold mb-4">Upload Your Resume</h1>
             <form onSubmit={handleSubmit}>
                 <input
