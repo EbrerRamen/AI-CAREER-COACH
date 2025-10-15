@@ -40,7 +40,7 @@ function ResumeUpload() {
             <div className="relative z-10 p-8 w-full max-w-md text-center bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl">
             <h1 className="text-3xl font-bold text-white mb-6">Upload Your Resume</h1>
             
-            <form onSubmit={handleSubmit} className="sapce-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5">
                 <input
                 type="file"
                 accept="application/pdf"
