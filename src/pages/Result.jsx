@@ -12,7 +12,7 @@ function Result() {
     const [loadingCover, setLoadingCover] = useState(false);
     const [loadingQuestions, setLoadingQuestions] = useState(false);
     const [score, setScore] = useState(null);
-    const [loadingScore, setLoadingScore] = useState(False);
+    const [loadingScore, setLoadingScore] = useState(false);
 
     const generateResumeScore = async () => {
         if (!analysis) return; // Ensure resume analysis exists
