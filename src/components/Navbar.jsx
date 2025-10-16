@@ -6,7 +6,7 @@ export default function Navbar() {
     const navLinks = [
         {path: "/", label: "Home" },
         {path: "/upload", label: "Analyze Resume" },
-        {path: "/results", label: "Results" },
+        // {path: "/results", label: "Results" },
     ];
 
     return (

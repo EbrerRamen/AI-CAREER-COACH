@@ -56,8 +56,8 @@ function Result() {
             <div className="relative z-10 w-full max-w-3xl bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8 text-white">
             <h1 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">Resume Analysis</h1>
             <div className="border border-white/20 p-4 rounded-lg mb-6 bg-white/5 text-gray-100 prose prose-invert max-w-none">
-  <ReactMarkdown>{analysis}</ReactMarkdown>
-</div>
+                <ReactMarkdown>{analysis}</ReactMarkdown>
+            </div>
 
             <div className="mb-6">
                 <input
