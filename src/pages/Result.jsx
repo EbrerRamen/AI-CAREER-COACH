@@ -77,6 +77,22 @@ function Result() {
                 <ReactMarkdown>{analysis}</ReactMarkdown>
             </div>
 
+            {analysis && (
+                <div className="flex justify-center mb-6">
+                    <button
+                    onClick={generateResumeScore}
+                    className={`px-6 py-3 rounded-xl font-semibold text-lg transition all ${
+                        loadingScore
+                        ? "bg-gray-500 cursor-not-allowed"
+                        : "bg-yellow-500 hover:bg-yellow-400 shadow-lg"
+                    } text-white`}
+                    disabled={loadingScore}
+                    >
+                        {loadingScore ? "Generating Score..." : "Generate Resume Score"}
+                    </button>
+                </div>
+            )}
+
             <div className="mb-6">
                 <input
                 type="text"
