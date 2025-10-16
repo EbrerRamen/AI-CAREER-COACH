@@ -141,6 +141,23 @@ function Result() {
                 <p className="border border-white/20 p-4 rounded bg-white/5 text-gray-100 whitespace-pre-line">{questions}</p>
                 </>
             )}
+
+            {score && (
+                <div className="mt-4 p-4 border border-white/20 rounded-lg bg-white/10 text-white">
+                    <h2 className="text-2xl font-semibold mb-3 text-yellow-300">Resume Score</h2>
+                    <div className="mb-2">Overall Score: {score.overall_score}/100</div>
+                    {score.score_breakdown && (
+                        <div className="grid grid-cols-2 gap-2">
+                            {object.entries(score.score_breakdown).map(([keyboard, value]) => (
+                                <div key={key} className="border p-2 rounded bg-white/5">
+                                    <strong>{key}:</strong> {value}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                </div>
+            )}
         </div>
         </div>
     );
