@@ -148,9 +148,9 @@ function Result() {
                     <div className="mb-2">Overall Score: {score.overall_score}/100</div>
                     {score.score_breakdown && (
                         <div className="grid grid-cols-2 gap-2">
-                            {object.entries(score.score_breakdown).map(([keyboard, value]) => (
-                                <div key={key} className="border p-2 rounded bg-white/5">
-                                    <strong>{key}:</strong> {value}
+                            {Object.entries(score.score_breakdown).map(([Key, value]) => (
+                                <div key={Key} className="border p-2 rounded bg-white/5">
+                                    <strong>{Key}:</strong> {value}
                                 </div>
                             ))}
                         </div>
