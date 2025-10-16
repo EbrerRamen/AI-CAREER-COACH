@@ -24,44 +24,12 @@ def parse_resume(pdf_file):
     return text[:3000] # limit for simplicity
 
 # --- Route 1: Analyze Resume (using DeepSeek/DeepSeek-v3.2 Exp) ---
-# @app.route("/analyze_resume", methods=["POST"])
-# def analyze_resume():
-#     file = request.files["resume"]
-#     text = parse_resume(file)
-
-#     # --- Build the analysis prompt ---
-#     prompt = f"""
-# You are a professional career coach and resume reviewer.
-# Analyze the following resume text and provide:
-# 1. A summary of the candidate’s background.
-# 2. Key strengths and technical skills.
-# 3. Potential weaknesses or missing areas.
-# 4. Actionable suggestions for improvement.
-# DO NOT INCLUDE ANYTHING ELSE
-# Resume:
-# {text[:3000]}
-# """
-
-#     # --- Send to model ---
-#     completion = client.chat.completions.create(
-#         model="deepseek-ai/DeepSeek-V3.2-Exp:novita",
-#         messages=[{"role": "user", "content": prompt}],
-#         temperature=0.6,
-#         max_tokens=500
-#     )
-
-#     # --- Extract and clean response ---
-#     analysis = completion.choices[0].message.content
-
-#     # --- Return JSON ---
-#     return jsonify({"analysis": analysis})
-
 @app.route("/analyze_resume", methods=["POST"])
 def analyze_resume():
     file = request.files["resume"]
     text = parse_resume(file)
 
-    # --- Build AI prompt with scoring instructions ---
+    # --- Build the analysis prompt ---
     prompt = f"""
 You are a professional career coach and resume reviewer.
 Analyze the following resume text and provide:
@@ -69,60 +37,65 @@ Analyze the following resume text and provide:
 2. Key strengths and technical skills.
 3. Potential weaknesses or missing areas.
 4. Actionable suggestions for improvement.
-5. Score the resume out of 100 based on these categories:
-   - Formatting & Structure
-   - Skills & Technical Knowledge
-   - Experience & Projects
-   - Clarity & Readability
-   - Impact & Results
-Provide a breakdown like:
-Formatting & Structure: 20/20
-Skills & Technical Knowledge: 18/20
-Experience & Projects: 15/20
-Clarity & Readability: 18/20
-Impact & Results: 12/20
-Overall Score: 83/100
-
-Return a JSON object with the following keys:
-- "analysis": textual analysis
-- "score_breakdown": the breakdown per category
-- "overall_score": the overall score
-
-Do not include anything else.
-
+DO NOT INCLUDE ANYTHING ELSE
 Resume:
 {text[:3000]}
 """
 
-    # --- Call AI ---
+    # --- Send to model ---
     completion = client.chat.completions.create(
         model="deepseek-ai/DeepSeek-V3.2-Exp:novita",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.6,
-        max_tokens=700
+        max_tokens=500
     )
 
-    # --- Extract the response ---
+    # --- Extract and clean response ---
+    analysis = completion.choices[0].message.content
+
+    # --- Return JSON ---
+    return jsonify({"analysis": analysis, "resume_text": text})
+
+@app.route("/generate_resume_score", methods=["POST"])
+def generate_resume_score():
+    data = request.get_json()
+    resume_text = data.get("resume_text", "")
+    # --- Prompt for scoring ---
+    prompt = f"""
+You are a professional career coach.
+Score the following resume out of 100 using this rubric:
+- Formatting & Structure (20)
+- Skills & Technical Knowledge (20)
+- Experience & Projects (20)
+- Clarity & Readability (20)
+- Impact & Results (20)
+
+Provide:
+1. A JSON object ONLY with:
+   - "score_breakdown": {{}}
+   - "overall_score": number
+Resume:
+{resume_text[:3000]}
+"""
+    
+    completion = client.chat.completions.create(
+        model="deepseek-ai/DeepSeek-V3.2-Exp:novita",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.6,
+        max_tokens=400
+    )
+
     response_text = completion.choices[0].message.content
 
-    # --- Optional: Parse JSON from AI ---
     import json
     try:
-        ai_json = json.loads(response_text)
-        analysis = ai_json.get("analysis", "")
-        score_breakdown = ai_json.get("score_breakdown", {})
-        overall_score = ai_json.get("overall_score", 0)
+        score_data = json.loads(response_text)
     except:
-        # fallback if AI doesn't return proper JSON
-        analysis = response_text
-        score_breakdown = {}
-        overall_score = None
+        # fallback if AI returns text
+        score_data = {"score_breakdow": {}, "overall_score": None}
 
-    return jsonify({
-        "analysis": analysis,
-        "score_breakdown": score_breakdown,
-        "overall_score": overall_score
-    })
+    return jsonify(score_data)
+
 
 # --- Route 2: Generate Cover Letter (using DeepSeek/DeepSeek-v3.2 Exp) ---
 @app.route("/generate_cover_letter", methods=["POST"])
