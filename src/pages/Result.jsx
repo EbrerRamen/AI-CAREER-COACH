@@ -11,6 +11,24 @@ function Result() {
     const [jobTitle, setJobTitle] = useState("");
     const [loadingCover, setLoadingCover] = useState(false);
     const [loadingQuestions, setLoadingQuestions] = useState(false);
+    const [score, setScore] = useState(null);
+    const [loadingScore, setLoadingScore] = useState(False);
+
+    const generateResumeScore = async () => {
+        if (!analysis) return; // Ensure resume analysis exists
+        setLoadingScore(true);
+        try {
+            const res = await axios.post("http://127.0.0.1:5000/generate_resume_score", {
+                resume_text: analysis, //send the analyzed text
+            });
+            setScore(res.data);
+        } catch (err) {
+            console.error(err);
+            alert("Error generating resume score.");
+        } finally {
+            setLoadingScore(false);
+        }
+    };
 
     const generateCoverLetter = async () => {
         if (!jobTitle) return alert("Enter a job title first.");
