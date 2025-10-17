@@ -76,6 +76,8 @@ Provide:
    - "overall_score": number
 Resume:
 {resume_text[:3000]}
+
+Respond with ONLY valid JSON. No text, no explanations.
 """
     
     completion = client.chat.completions.create(
@@ -92,7 +94,8 @@ Resume:
         score_data = json.loads(response_text)
     except:
         # fallback if AI returns text
-        score_data = {"score_breakdow": {}, "overall_score": None}
+        print("Model returned invalid JSON:", response_text)
+        score_data = {"score_breakdown": {}, "overall_score": None}
 
     return jsonify(score_data)
 
