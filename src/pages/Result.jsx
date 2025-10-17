@@ -84,7 +84,7 @@ function Result() {
                     className={`px-6 py-3 rounded-xl font-semibold text-lg transition all ${
                         loadingScore
                         ? "bg-gray-500 cursor-not-allowed"
-                        : "bg-yellow-500 hover:bg-yellow-400 shadow-lg"
+                        : "bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-bg-yellow-300 hover:to-amber-400 shadow-lg hover:shadow-amber-500/50"
                     } text-white`}
                     disabled={loadingScore}
                     >
