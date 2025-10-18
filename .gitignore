@@ -29,3 +29,5 @@ yarn-error.log*
 
 /backend/test.py
 /backend/.env
+
+.env
