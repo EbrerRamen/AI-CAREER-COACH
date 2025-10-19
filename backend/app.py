@@ -47,7 +47,7 @@ Resume:
         model="deepseek-ai/DeepSeek-V3.2-Exp:novita",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.6,
-        max_tokens=500
+        max_tokens=600
     )
 
     # --- Extract and clean response ---
