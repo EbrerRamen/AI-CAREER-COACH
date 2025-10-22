@@ -3,6 +3,8 @@ import {useState} from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function Result() {
     const {state} = useLocation();
     const analysis = state?.analysis || "";
