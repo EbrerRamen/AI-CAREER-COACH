@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 app = Flask(__name__)
-CORS(app, origins=["ai-career-coach-one-rho.vercel.app"])
+CORS(app, origins=["https://ai-career-coach-one-rho.vercel.app"])
 # CORS(app)
 
 load_dotenv()
