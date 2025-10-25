@@ -1,11 +1,13 @@
 # AI Resume Analyzer
 
 An AI-powered web application that analyzes resumes using DeepSeek-V3.2-Exp and provides detailed feedback including:  
+✅ Summary of the Candidate’s Background  
+✅ Key Strengths and Technical Skills  
+✅ Potential Weaknesses or Missing Areas    
+✅ Actionable Suggestions for Improvement    
 ✅ Overall score  
-✅ Breakdown analysis  
-✅ Grammar improvements  
-✅ Suggestions for better clarity & impact  
-✅ Cover letter and interview questions for desired role
+✅ Cover letter and interview questions for desired role  
+
 ---
 
 ## 🚀 Live Demo
