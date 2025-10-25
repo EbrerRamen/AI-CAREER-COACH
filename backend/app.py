@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 app = Flask(__name__)
-CORS(app, origins=["https://ai-career-coach-one-rho.vercel.app"])
-# CORS(app)
+# CORS(app, origins=["https://ai-career-coach-one-rho.vercel.app"])
+CORS(app)
 
 load_dotenv()
 
@@ -22,7 +22,7 @@ def parse_resume(pdf_file):
     pdf_bytes = pdf_file.read()
     pdf_stream = BytesIO(pdf_bytes)
     text = extract_text(pdf_stream)
-    return text[:3000] # limit for simplicity
+    return text[:12000] # limit for simplicity
 
 # --- Route 1: Analyze Resume (using DeepSeek/DeepSeek-v3.2 Exp) ---
 @app.route("/analyze_resume", methods=["POST"])
@@ -40,7 +40,7 @@ Analyze the following resume text and provide:
 4. Actionable suggestions for improvement.
 DO NOT INCLUDE ANYTHING ELSE
 Resume:
-{text[:3000]}
+{text[:12000]}
 """
 
     # --- Send to model ---
@@ -48,7 +48,7 @@ Resume:
         model="deepseek-ai/DeepSeek-V3.2-Exp:novita",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.6,
-        max_tokens=600
+        max_tokens=1200
     )
 
     # --- Extract and clean response ---
