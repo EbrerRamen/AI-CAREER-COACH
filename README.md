@@ -1,70 +1,111 @@
-# Getting Started with Create React App
+# AI Resume Analyzer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An AI-powered web application that analyzes resumes using Large Language Models (LLMs) and provides detailed feedback including:
+✅ Overall score  
+✅ Breakdown analysis  
+✅ Grammar improvements  
+✅ Suggestions for better clarity & impact  
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Live Demo
 
-### `npm start`
+🔹 **Frontend:** https://<your-vercel-url>  
+🔹 **Backend API:** https://<your-render-api-url>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> Replace the URLs above with your actual deployed URLs.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Layer | Technology |
+|-------|------------|
+| Frontend | React (Vite) |
+| Backend | Flask (Python) |
+| AI Model | Hugging Face Inference API |
+| Deployment | Vercel (Frontend), Render (Backend) |
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📂 Project Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+root/
+├── backend/
+│ ├── app.py
+│ ├── requirements.txt
+│ ├── .env (not included in repo)
+├── public/
+├── src/
+│ ├── components/
+│ ├── App.jsx
+│ ├── main.jsx
+├── .env (not included in repo)
+├── package.json
+└── README.md
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🔑 Environment Variables
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### ✅ Frontend `.env`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+REACT_APP_API_URL=https://<your-render-api-url>
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### ✅ Backend `.env`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+HF_TOKEN=<your_huggingface_api_key>
+FLASK_ENV=production
+PORT=5000
+```
+> ⚠️ Never share your API keys publicly.
 
-## Learn More
+## 🏃‍♂️ Run Locally
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Clone the project:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+git clone https://github.com/EbrerRamen/AI-CAREER-COACH.git
+cd <your-repo>
+```
 
-### Code Splitting
+# ✅ Install and run frontend
+```bash
+npm install
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# ✅ Install and run backend
+```bash
+cd backend
+pip install -r requirements.txt
+python app.py
+```
 
-### Analyzing the Bundle Size
+# 🧪 Testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Upload a resume PDF and click "Analyze Resume"
+You should see:
 
-### Making a Progressive Web App
+✅ AI evaluation report
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+✅ Key strengths & weaknesses
 
-### Advanced Configuration
+✅ Score breakdown
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Provide your desired role and click "Generate Cover Letter"
+You shoul see: 
 
-### Deployment
+✅ AI generated cover letter for that role
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Provide your desired role and click "Generate Interview Questions"
+You shoul see: 
 
-### `npm run build` fails to minify
+✅ AI generated interview questions for that role
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# ⭐ Contributions
+Pull requests are welcome!
+If you like this project, please ⭐ star the repository!
