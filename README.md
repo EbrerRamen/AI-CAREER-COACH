@@ -10,7 +10,7 @@ An AI-powered web application that analyzes resumes using DeepSeek-V3.2-Exp and 
 
 ## 🚀 Live Demo
 
-🔹 **Frontend:** ai-career-coach-one-rho.vercel.app  
+🔹 **Frontend:** https://ai-career-coach-one-rho.vercel.app  
 🔹 **Backend API:** https://ai-career-coach-3x1f.onrender.com
 
 ---
