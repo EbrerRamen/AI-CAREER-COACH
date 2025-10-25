@@ -20,7 +20,7 @@ function Result() {
         if (!analysis) return; // Ensure resume analysis exists
         setLoadingScore(true);
         try {
-            const res = await axios.post("http://127.0.0.1:5000/generate_resume_score", {
+            const res = await axios.post(`${API_URL}/generate_resume_score`, {
                 resume_text: analysis, //send the analyzed text
             });
             setScore(res.data);
@@ -36,7 +36,7 @@ function Result() {
         if (!jobTitle) return alert("Enter a job title first.");
         setLoadingCover(true);
         try {
-            const res = await axios.post("http://127.0.0.1:5000/generate_cover_letter", {
+            const res = await axios.post(`${API_URL}/generate_cover_letter`, {
                 job_title: jobTitle,
                 resume_text: analysis,
             });
@@ -53,7 +53,7 @@ function Result() {
         if (!jobTitle) return alert("Enter a job title first.");
         setLoadingQuestions(true);
         try {
-            const res = await axios.post("http://127.0.0.1:5000/generate_interview_questions", {
+            const res = await axios.post(`${API_URL}/generate_interview_questions`, {
                 job_title: jobTitle,
             });
             setQuestions(res.data.questions);
