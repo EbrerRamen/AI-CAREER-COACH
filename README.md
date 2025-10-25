@@ -5,15 +5,13 @@ An AI-powered web application that analyzes resumes using Large Language Models 
 ✅ Breakdown analysis  
 ✅ Grammar improvements  
 ✅ Suggestions for better clarity & impact  
-
+✅ Cover letter and interview questions for desired role
 ---
 
 ## 🚀 Live Demo
 
-🔹 **Frontend:** https://<your-vercel-url>  
-🔹 **Backend API:** https://<your-render-api-url>
-
-> Replace the URLs above with your actual deployed URLs.
+🔹 **Frontend:** ai-career-coach-one-rho.vercel.app
+🔹 **Backend API:** https://ai-career-coach-3x1f.onrender.com
 
 ---
 
@@ -30,19 +28,19 @@ An AI-powered web application that analyzes resumes using Large Language Models 
 
 ## 📂 Project Structure
 
-root/
-├── backend/
-│ ├── app.py
-│ ├── requirements.txt
-│ ├── .env (not included in repo)
-├── public/
-├── src/
-│ ├── components/
-│ ├── App.jsx
-│ ├── main.jsx
-├── .env (not included in repo)
-├── package.json
-└── README.md
+root/  
+├── backend/  
+│ ├── app.py  
+│ ├── requirements.txt  
+│ ├── .env (not included in repo)  
+├── public/  
+├── src/  
+│ ├── components/  
+│ ├── App.jsx  
+│ ├── main.jsx  
+├── .env (not included in repo)  
+├── package.json  
+└── README.md  
 
 ---
 
@@ -96,16 +94,16 @@ You should see:
 
 ✅ Score breakdown
 
-Provide your desired role and click "Generate Cover Letter"
+Provide your desired role and click "Generate Cover Letter"  
 You shoul see: 
 
 ✅ AI generated cover letter for that role
 
-Provide your desired role and click "Generate Interview Questions"
+Provide your desired role and click "Generate Interview Questions"  
 You shoul see: 
 
 ✅ AI generated interview questions for that role
 
 # ⭐ Contributions
-Pull requests are welcome!
+Pull requests are welcome!  
 If you like this project, please ⭐ star the repository!
