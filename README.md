@@ -1,6 +1,6 @@
 # AI Resume Analyzer
 
-An AI-powered web application that analyzes resumes using Large Language Models (LLMs) and provides detailed feedback including:
+An AI-powered web application that analyzes resumes using Large Language Models (LLMs) and provides detailed feedback including:  
 ✅ Overall score  
 ✅ Breakdown analysis  
 ✅ Grammar improvements  
