@@ -2,6 +2,8 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function ResumeUpload() {
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -16,7 +18,7 @@ function ResumeUpload() {
 
         try {
             setLoading(true);
-            const res = await axios.post("http://127.0.0.1:5000/analyze_resume", formData, {
+            const res = await axios.post(`${API_URL}/analyze_resume`, formData, {
                 headers: {"Content-Type": "multipart/form-data"},
             });
 
