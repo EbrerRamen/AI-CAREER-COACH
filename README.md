@@ -1,6 +1,6 @@
 # AI Resume Analyzer
 
-An AI-powered web application that analyzes resumes using Large Language Models (LLMs) and provides detailed feedback including:  
+An AI-powered web application that analyzes resumes using DeepSeek-V3.2-Exp and provides detailed feedback including:  
 ✅ Overall score  
 ✅ Breakdown analysis  
 ✅ Grammar improvements  
@@ -10,7 +10,7 @@ An AI-powered web application that analyzes resumes using Large Language Models 
 
 ## 🚀 Live Demo
 
-🔹 **Frontend:** ai-career-coach-one-rho.vercel.app
+🔹 **Frontend:** ai-career-coach-one-rho.vercel.app  
 🔹 **Backend API:** https://ai-career-coach-3x1f.onrender.com
 
 ---
@@ -19,9 +19,9 @@ An AI-powered web application that analyzes resumes using Large Language Models 
 
 | Layer | Technology |
 |-------|------------|
-| Frontend | React (Vite) |
+| Frontend | React |
 | Backend | Flask (Python) |
-| AI Model | Hugging Face Inference API |
+| AI Model | DeepSeek-V3.2-Exp |
 | Deployment | Vercel (Frontend), Render (Backend) |
 
 ---
