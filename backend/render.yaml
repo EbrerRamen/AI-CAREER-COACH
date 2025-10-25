@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ai-career-coach-api
+    env: python
+    region: singapore
+    plan: free
+    branch: main
+    buildCommand: ""
+    startCommand: "gunicorn app:app"
